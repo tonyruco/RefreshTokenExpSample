@@ -8,10 +8,21 @@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
+}
+
+@code {
+    @inject IHttpClientFactory ClientFactory
     private int currentCount = 0;
 
     private void IncrementCount()
     {
         currentCount++;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("QAiAPI");
+        var test = await client.GetAsync("https://xzc-e-n-exelens-d-api-01.azurewebsites.net");
+        Console.WriteLine(test);
     }
 }
